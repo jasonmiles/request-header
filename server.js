@@ -3,8 +3,11 @@ var app = express()
 
 var port = process.env.PORT || 8080;
 
-app.get('/', function(req, res) {
-  res.send("Hello World")
+app.get('/api/whoami', function(req, res) {
+  var ipaddress = req.connection.remoteAddress
+  var lang = req.headers["accept-language"].split(',')[0]
+  var software = req.headers["user-agent"].split('(')[1].split(')')[0]
+  res.send({ipaddress: ipaddress, language: lang, software: software})
 })
 
 app.listen(port, function () {
